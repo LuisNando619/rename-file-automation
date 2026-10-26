@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env/
+.env.*
+!.env.example
+uploads/
+processed/
+test/fixtures/*.png
+test/fixtures/*.pdf
+sample.pdf
+por.traineddata
+npm-debug.log*

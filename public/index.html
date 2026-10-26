@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f5f1">
+    <title>rename file</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="rename file, início">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>rename file<span class="brand-dot">.</span></span>
+      </a>
+      <div class="topbar-actions">
+        <label class="theme-control">
+          <input id="theme-toggle" type="checkbox" role="switch" aria-label="Modo escuro">
+          <span class="theme-toggle-track" aria-hidden="true"><span></span></span>
+          <span class="theme-control-label">Modo escuro</span>
+        </label>
+        <div class="topbar-meta">
+          <span class="connection-dot" aria-hidden="true"></span>
+          <span>Ambiente local</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">RENOMEAÇÃO INTELIGENTE <span> / </span> 01</p>
+        <h1 id="page-title">Do documento<br>ao nome certo.</h1>
+        <p class="intro-copy">Envie um arquivo, confira o que o OCR encontrou e ajuste os dados antes de salvar.</p>
+      </section>
+
+      <section class="workbench" aria-label="Processamento de documento">
+        <div class="source-column">
+          <div class="section-heading">
+            <span class="step-number">01</span>
+            <div>
+              <h2>Documento original</h2>
+              <p>PDF ou imagem, até 10 MB</p>
+            </div>
+          </div>
+
+          <label class="dropzone" id="dropzone" for="file-input" tabindex="0">
+            <input id="file-input" type="file" accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff,.bmp,application/pdf,image/*">
+            <span class="upload-symbol" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14.5v3A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="dropzone-title" id="dropzone-title">Escolher documento</span>
+            <span class="dropzone-subtitle" id="dropzone-subtitle">ou arraste o arquivo para cá</span>
+            <span class="file-types">PDF · PNG · JPG · TIFF</span>
+          </label>
+
+          <div class="preview-wrap" id="preview-wrap" hidden>
+            <div class="preview-topline">
+              <span class="preview-label">PRÉ-VISUALIZAÇÃO</span>
+              <button class="text-button" type="button" id="remove-file" aria-label="Remover documento">Remover</button>
+            </div>
+            <div class="preview-frame" id="preview-frame" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Abrir documento em janela" title="Abrir documento em janela">
+              <img id="image-preview" alt="Pré-visualização do documento" hidden>
+              <iframe id="pdf-preview" title="Pré-visualização do PDF" hidden></iframe>
+              <div class="unsupported-preview" id="unsupported-preview" hidden>Prévia indisponível para este formato</div>
+              <span class="preview-expand" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M7 3H3v4m0-4 5 5m5 9h4v-4m0 4-5-5M13 3h4v4m0-4-5 5M7 17H3v-4m0 4 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+            <div class="file-caption">
+              <span class="file-icon" aria-hidden="true">DOC</span>
+              <span class="file-caption-name" id="file-name"></span>
+              <span class="file-caption-size" id="file-size"></span>
+            </div>
+          </div>
+
+          <dialog class="document-viewer" id="document-viewer" aria-labelledby="viewer-file-name">
+            <header class="viewer-toolbar">
+              <p class="viewer-file-name" id="viewer-file-name"></p>
+              <div class="viewer-toolbar-actions">
+                <div class="viewer-zoom-controls" id="viewer-zoom-controls" hidden>
+                  <button class="viewer-icon-button" type="button" id="viewer-zoom-out" aria-label="Diminuir zoom" title="Diminuir zoom">
+                    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  </button>
+                  <span class="viewer-zoom-level" id="viewer-zoom-level">100%</span>
+                  <button class="viewer-icon-button" type="button" id="viewer-zoom-in" aria-label="Aumentar zoom" title="Aumentar zoom">
+                    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 4v12m-6-6h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  </button>
+                  <button class="viewer-fit-button" type="button" id="viewer-fit">Ajustar</button>
+                </div>
+                <button class="viewer-icon-button" type="button" id="viewer-window-toggle" aria-label="Maximizar janela" title="Maximizar janela">
+                  <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 3H3v4m0-4 5 5m5 9h4v-4m0 4-5-5M13 3h4v4m0-4-5 5M7 17H3v-4m0 4 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="viewer-icon-button viewer-close" type="button" id="viewer-close" aria-label="Fechar visualização" title="Fechar visualização">
+                  <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                </button>
+              </div>
+            </header>
+            <div class="viewer-content" id="viewer-content">
+              <img class="viewer-image" id="viewer-image" alt="Documento ampliado" hidden>
+              <iframe class="viewer-pdf" id="viewer-pdf" title="Documento PDF ampliado" hidden></iframe>
+            </div>
+          </dialog>
+
+          <button class="button button-primary ocr-button" type="button" id="ocr-button" disabled>
+            <span class="button-spinner" aria-hidden="true"></span>
+            <span id="ocr-button-label">Ler documento com OCR</span>
+            <svg class="button-arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="details-column">
+          <div class="section-heading">
+            <span class="step-number">02</span>
+            <div>
+              <h2>Dados do documento</h2>
+              <p>Revise os campos antes de salvar</p>
+            </div>
+            <span class="review-state" id="review-state">AGUARDANDO OCR</span>
+          </div>
+
+          <form id="rename-form" novalidate>
+            <div class="field-grid">
+              <label class="field">
+                <span>Tipo</span>
+                <select name="tipoDocumento" required>
+                  <option value="">Selecione</option>
+                  <option value="BOLETO">Boleto</option>
+                  <option value="NF">Nota fiscal</option>
+                  <option value="DACTE">DACTE</option>
+                  <option value="COMPROVANTE">Comprovante</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Número / série</span>
+                <input name="numeroSerie" type="text" placeholder="Ex.: 7634" autocomplete="off" required>
+              </label>
+              <label class="field field-wide">
+                <span>Fornecedor</span>
+                <input name="nomeFornecedor" type="text" placeholder="Nome do fornecedor" autocomplete="organization" required>
+              </label>
+              <label class="field">
+                <span>Valor</span>
+                <div class="input-prefix"><span>R$</span><input name="valor" type="text" inputmode="decimal" placeholder="0,00" required></div>
+              </label>
+              <label class="field">
+                <span>Referência</span>
+                <input name="dataReferencia" type="text" placeholder="MMAA" inputmode="numeric" required>
+              </label>
+            </div>
+
+            <div class="name-preview" aria-live="polite">
+              <span class="preview-label">NOME DO ARQUIVO</span>
+              <span class="name-placeholder" id="name-preview">Aguardando dados do documento</span>
+            </div>
+
+            <button class="button button-save" type="submit" id="save-button" disabled>
+              <span class="button-spinner" aria-hidden="true"></span>
+              <span id="save-button-label">Salvar documento renomeado</span>
+              <svg class="button-arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+
+          <div class="status-message" id="status-message" role="status" aria-live="polite" hidden></div>
+
+          <section class="saved-result" id="saved-result" aria-live="polite" hidden>
+            <div class="result-check" aria-hidden="true">✓</div>
+            <div class="result-copy">
+              <span class="preview-label">DOCUMENTO SALVO</span>
+              <strong id="saved-name"></strong>
+            </div>
+            <a class="download-link" id="download-link" href="#" aria-label="Baixar documento renomeado">
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 13.5v2A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Baixar</span>
+            </a>
+          </section>
+
+          <details class="recognized-text" id="recognized-section" hidden>
+            <summary>Texto reconhecido pelo OCR</summary>
+            <pre id="recognized-text"></pre>
+          </details>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <span>ARQUIVO <span class="footer-separator">/</span> PROCESSAMENTO LOCAL</span>
+        <span>O documento original permanece no seu computador até o envio.</span>
+      </footer>
+    </main>
+  </body>
+</html>
