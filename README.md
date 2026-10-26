@@ -1,6 +1,6 @@
 # rename file
 
-Aplicação local para ler documentos com OCR, revisar os dados reconhecidos e salvar o arquivo com um nome padronizado.
+Aplicação local para automatizar a leitura com OCR, revisar os dados reconhecidos e salvar documentos de trabalho com um nome padronizado.
 
 ## Requisitos
 
