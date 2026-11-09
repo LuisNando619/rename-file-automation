@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f5f1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self';">
+    <title>rename file</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="rename file, início">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>rename file<span class="brand-dot">.</span></span>
+      </a>
+      <div class="topbar-actions">
+        <label class="theme-control">
+          <input id="theme-toggle" type="checkbox" role="switch" aria-label="Modo escuro">
+          <span class="theme-toggle-track" aria-hidden="true"><span></span></span>
+          <span class="theme-control-label">Modo escuro</span>
+        </label>
+        <div class="topbar-meta">
+          <span class="connection-dot" aria-hidden="true"></span>
+          <span>Aplicativo local</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">RENOMEAÇÃO INTELIGENTE <span> / </span> LOTE</p>
+        <h1 id="page-title">Vários documentos.<br>Um nome certo.</h1>
+        <p class="intro-copy">Selecione seus documentos e deixe o OCR identificar os dados e renomear cada arquivo. Os que precisarem de atenção ficam destacados no resultado.</p>
+      </section>
+
+      <section class="workbench" aria-label="Processamento de documentos em lote">
+        <div class="source-column">
+          <div class="section-heading">
+            <span class="step-number">01</span>
+            <div>
+              <h2>Documentos originais</h2>
+              <p>PDF ou imagem, até 10 MB por arquivo</p>
+            </div>
+          </div>
+
+          <label class="dropzone" id="dropzone" for="file-input" tabindex="0">
+            <input id="file-input" type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff,.bmp,application/pdf,image/*">
+            <span class="upload-symbol" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14.5v3A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="dropzone-title">Adicionar documentos</span>
+            <span class="dropzone-subtitle">ou arraste vários arquivos para cá</span>
+            <span class="file-types">PDF · PNG · JPG · TIFF · BMP</span>
+          </label>
+
+          <div class="file-queue-heading">
+            <span class="preview-label" id="queue-count">FILA VAZIA</span>
+            <button class="text-button" type="button" id="clear-files" disabled>Limpar lista</button>
+          </div>
+          <ul class="file-queue" id="file-queue" aria-live="polite"></ul>
+
+          <button class="button button-primary" type="button" id="process-button" disabled>
+            <span class="button-spinner" aria-hidden="true"></span>
+            <span id="process-button-label">Processar documentos</span>
+            <svg class="button-arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="status-message" id="status-message" role="status" aria-live="polite" hidden></div>
+        </div>
+
+        <div class="details-column">
+          <div class="section-heading">
+            <span class="step-number">02</span>
+            <div>
+              <h2>Resultados</h2>
+              <p>O processamento continua mesmo se um arquivo falhar</p>
+            </div>
+          </div>
+
+          <div class="batch-summary" id="batch-summary">
+            <span id="progress-label">Aguardando documentos</span>
+            <span id="progress-count">0 / 0</span>
+          </div>
+          <progress class="batch-progress" id="batch-progress" value="0" max="1"></progress>
+          <ul class="result-list" id="result-list" aria-live="polite">
+            <li class="empty-result">Os resultados aparecerão aqui após o processamento.</li>
+          </ul>
+          <button class="button button-save output-button" type="button" id="open-output-button">
+            <span>Abrir pasta de documentos renomeados</span>
+            <svg class="button-arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <p class="output-location">Os arquivos processados são salvos em Documentos\Rename File\processed.</p>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <span>ARQUIVO <span class="footer-separator">/</span> PROCESSAMENTO LOCAL</span>
+        <span>Os documentos são processados neste computador.</span>
+      </footer>
+    </main>
+  </body>
+</html>
