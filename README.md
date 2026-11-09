@@ -2,10 +2,20 @@
 
 Aplicativo desktop para Windows que usa OCR para identificar dados de documentos e renomear vários arquivos em sequência.
 
+## Baixar para Windows
+
+Baixe o executável portátil na página de [Downloads (v1.0.0)](https://github.com/LuisNando619/rename-file-automation/releases/tag/v1.0.0) ou clique diretamente aqui:
+
+[**Baixar Rename-File-1.0.0.exe**](https://github.com/LuisNando619/rename-file-automation/releases/download/v1.0.0/Rename-File-1.0.0.exe)
+
+Após o download, abra o arquivo `.exe`. Não é necessário instalar o Node.js para usar o executável.
+
 ## Requisitos
 
 - Node.js 22.13 ou superior
 - npm
+
+Os requisitos acima são necessários apenas para executar o projeto a partir do código-fonte ou gerar um novo executável.
 
 ## Executar o aplicativo desktop
 
